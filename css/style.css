@@ -774,3 +774,20 @@ footer {
 @media (max-width: 768px) {
   .stats-grid, .process-track, .mv-grid, .values-grid, .tech-grid, .services-grid, .portfolio-grid, .pricing-grid { gap: 20px; }
 }
+
+/* ---------- Why Choose ---------- */
+#why-choose { padding: var(--section-padding, 100px 0); }
+.choose-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;
+  margin-top: 48px;
+}
+.choose-card {
+  padding: 32px 24px; text-align: center;
+}
+.choose-card i {
+  font-size: 2rem; color: var(--color-accent); margin-bottom: 16px;
+}
+.choose-card h4 { font-size: 1.05rem; margin-bottom: 10px; }
+.choose-card p { font-size: 0.88rem; color: var(--color-text-muted); }
+@media (max-width: 900px) { .choose-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 500px) { .choose-grid { grid-template-columns: 1fr; } }
