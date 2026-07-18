@@ -255,16 +255,60 @@ function initContactForm() {
   const form = document.getElementById('contactForm');
   if (!form) return;
   const success = document.getElementById('formSuccess');
-  form.addEventListener('submit', (e) => {
+  const errorBox = document.getElementById('formError');
+  const errorText = document.getElementById('formErrorText');
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
+    if (!form.checkValidity()) { form.reportValidity(); return; }
+
+    const cfg = window.EMAILJS_CONFIG || {};
+    const enabled = window.emailjs && cfg.service_id && cfg.template_id && cfg.public_key && cfg.public_key !== 'YOUR_PUBLIC_KEY';
+
+    if (!enabled) {
+      if (errorBox) errorBox.classList.remove('show');
+      success.classList.add('show');
+      form.reset();
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => success.classList.remove('show'), 6000);
       return;
     }
-    success.classList.add('show');
-    form.reset();
-    success.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => success.classList.remove('show'), 6000);
+
+    try {
+      // Log form data to verify what's being sent to EmailJS
+      try {
+        const _fd = new FormData(form);
+        console.debug('FormData being sent:');
+        for (const [k, v] of _fd.entries()) console.debug(k, v);
+      } catch (logErr) { console.warn('FormData logging failed', logErr); }
+
+      // Build explicit params to ensure template receives all fields
+      const params = {
+        fullName: (form.fullName && form.fullName.value) || '',
+        email: (form.email && form.email.value) || '',
+        phone: (form.phone && form.phone.value) || '',
+        service: (form.service && form.service.value) || '',
+        message: (form.message && form.message.value) || ''
+      };
+      console.debug('EmailJS params object:', params);
+      const resp = await emailjs.send(cfg.service_id, cfg.template_id, params);
+      if (errorBox) errorBox.classList.remove('show');
+      success.classList.add('show');
+      form.reset();
+      console.info('EmailJS response', resp);
+    } catch (err) {
+      console.error('EmailJS send error', err);
+      if (errorBox && errorText) {
+        const msg = (err && (err.statusText || err.text || err.message)) ? (err.statusText || err.text || err.message) : 'Unknown error';
+        errorText.textContent = 'Failed to send message: ' + msg;
+        errorBox.classList.add('show');
+      } else {
+        alert('Failed to send message. Check console for details.');
+      }
+    } finally {
+      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      setTimeout(() => { success.classList.remove('show'); }, 6000);
+    }
   });
 }
 

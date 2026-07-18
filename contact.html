@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Contact Us | TechNexta Solutions</title>
 <meta name="description" content="Get in touch with TechNexta Solutions for a free quote on your website design and development project. Call, email, or send us a message.">
-<link rel="canonical" href="https://www.technexta.com/contact.html">
+<link rel="canonical" href="https://www.omnagpure111@gmail.com/contact.html">
 
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%232563EB%22/><text x=%2250%25%22 y=%2262%25%22 font-size=%2255%22 fill=%22white%22 text-anchor=%22middle%22 font-family=%22Arial%22>N</text></svg>">
 
@@ -64,7 +64,7 @@
               <div class="ci-icon"><i class="fa-solid fa-envelope"></i></div>
               <div>
                 <h4>Email</h4>
-                <a href="mailto:technextasolutions@gmail.com">technextasolutions@gmail.com</a>
+                <a href="mailto:technextasolutions@gmail.com">omnagpure111@gmail.com</a>
               </div>
             </div>
             <div class="contact-info-item">
@@ -96,6 +96,10 @@
             <i class="fa-solid fa-circle-check"></i>
             <span>Thanks! Your message has been received. We'll get back to you soon.</span>
           </div>
+          <div class="form-error" id="formError">
+            <i class="fa-solid fa-circle-exclamation"></i>
+            <span id="formErrorText">Failed to send message. See console for details.</span>
+          </div>
 
           <form id="contactForm" novalidate>
             <div class="form-row">
@@ -111,7 +115,7 @@
             <div class="form-row">
               <div class="form-group">
                 <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" placeholder="+91 93703 46370">
+                <input type="tel" id="phone" name="phone" placeholder="+91 8498593585">
               </div>
               <div class="form-group">
                 <label for="service">Service Needed</label>
@@ -137,12 +141,6 @@
             <p class="form-note">We typically respond within 24 hours on business days.</p>
           </form>
         </div>
-      </div>
-
-      <!-- Map placeholder -->
-      <div class="map-placeholder reveal">
-        <i class="fa-solid fa-map-location-dot"></i>
-        <p>Google Map placeholder — embed your business location here</p>
       </div>
     </div>
   </section>
@@ -185,7 +183,7 @@
         <h4>Contact</h4>
         <ul class="footer-contact">
           <li><i class="fa-solid fa-phone"></i> +91 93703 46370</li>
-          <li><i class="fa-solid fa-envelope"></i> technextasolutions@gmail.com</li>
+          <li><i class="fa-solid fa-envelope"></i> omnagpure111@gmail.com</li>
           <li><i class="fa-solid fa-location-dot"></i> Pune, Maharashtra, India</li>
         </ul>
       </div>
@@ -202,6 +200,30 @@
   <button class="float-btn top" id="backToTop" aria-label="Back to top"><i class="fa-solid fa-arrow-up"></i></button>
 </div>
 
+<!-- Email sending (optional) — configure EmailJS: replace placeholders with your EmailJS values -->
+<script>
+  // Replace these with your EmailJS values. Leave as placeholders to disable sending.
+  window.EMAILJS_CONFIG = {
+    service_id: 'service_x7ionas',
+    template_id: 'template_yzu318o',
+    public_key: '09yxETjv2Dr9pnnyZ'
+  };
+</script>
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+<script>
+  // quick SDK presence check
+  console.info('EmailJS SDK script requested from jsDelivr');
+  (function initEmailJS(){
+    const cfg = window.EMAILJS_CONFIG || {};
+    console.info('window.emailjs present?', !!window.emailjs);
+    if (window.emailjs && cfg.public_key && cfg.public_key !== 'YOUR_PUBLIC_KEY') {
+      try { emailjs.init(cfg.public_key); console.info('EmailJS initialized'); }
+      catch (e) { console.warn('EmailJS init failed', e); }
+    } else {
+      console.info('EmailJS not initialized (placeholders or SDK missing)');
+    }
+  })();
+</script>
 <script src="js/script.js"></script>
 </body>
 </html>
